@@ -15,9 +15,6 @@ export const GlobalStyle = createGlobalStyle`
         height: 100vh;
 
         #root{
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 100%;
         height: 100vh;
         }
