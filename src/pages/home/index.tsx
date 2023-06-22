@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { Wrapper } from "../../styles/wrapper";
 import { Form, Header, InputBusca } from "./style";
 import { getGames } from "../../utils/getGames";
-import { CardGame } from "../../components";
+import { CardGame, ErrorMessage } from "../../components";
 import { useHandleErrorMessage } from "../../store/handleErrors";
 import { IgameCard } from "../../components/cardGame";
 
@@ -26,7 +26,7 @@ export const Home = () => {
         {isLoading ? (
           <p>carregando...</p>
         ) : errorMessage ? (
-          <p>{errorMessage}</p>
+          <ErrorMessage msgError={errorMessage} />
         ) : (
           data &&
           data.map((games) => {
