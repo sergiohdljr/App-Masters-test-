@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import { Wrapper } from "../../styles/wrapper";
 import { Form, Header, InputBusca } from "./style";
-import { getGames } from "../../utils/getGames";
 import { CardGame, ErrorMessage } from "../../components";
 import { useHandleErrorMessage } from "../../store/handleErrors";
 import { IgameCard } from "../../components/cardGame";
 import { Loading } from "../../components/loading";
+import { getGames } from "./data";
 
 export const Home = () => {
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
@@ -18,7 +18,7 @@ export const Home = () => {
   return (
     <div>
       <Header>
-        APP-MASTRES-GAMES
+        APP-MASTERS-GAMES
         <Form action="">
           <InputBusca type="text" placeholder="Busca" />
         </Form>
@@ -30,16 +30,15 @@ export const Home = () => {
           <ErrorMessage msgError={errorMessage} />
         ) : (
           data &&
-          data.map((games) => {
-            const imagem = games.thumbnail;
+          data.map((game) => {
             return (
               <CardGame
-                key={games.id}
-                game_url={games.game_url}
-                thumbnail={imagem}
-                title={games.title}
-                short_description={games.short_description}
-                genre={games.genre}
+                key={game.id}
+                genre={game.genre}
+                title={game.title}
+                game_url={game.game_url}
+                thumbnail={game.thumbnail}
+                short_description={game.short_description}
               />
             );
           })
