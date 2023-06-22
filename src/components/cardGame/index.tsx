@@ -12,7 +12,7 @@ import {
 } from "./style";
 
 export interface IgameCard {
-  id: number;
+  id?: number;
   title: string;
   thumbnail: string;
   short_description: string;

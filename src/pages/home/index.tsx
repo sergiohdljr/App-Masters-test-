@@ -5,17 +5,23 @@ import { getGames } from "../../utils/getGames";
 import { CardGame } from "../../components";
 import { IgameCard } from "../../components/cardGame";
 import { useState } from "react";
+import { serverErrosCode } from "../../utils/regexServerErros";
 
 export const Home = () => {
-  const [error500, setError500] = useState();
-  const { data, isLoading } = useQuery(
+  const [serverError, setServerError] = useState<string>();
+  const { data, isLoading } = useQuery<IgameCard[]>(
     "games",
     async () =>
       await getGames().catch((error) => {
         if (error.response) {
-          // A requisição foi feita e o servidor respondeu com um código de status
-          // que sai do alcance de 2xx
-          setError500(error.response.status);
+          const match = serverErrosCode.test(error.response.status?.toString());
+          match
+            ? setServerError(
+                "O servidor fahou em responder, tente recarregar a página."
+              )
+            : setServerError(
+                "O servidor não conseguirá responder por agora, tente voltar novamente mais tarde."
+              );
         }
       })
   );
@@ -31,17 +37,14 @@ export const Home = () => {
       <Wrapper>
         {isLoading ? (
           <p>carregando...</p>
+        ) : serverError ? (
+          <p>{serverError}</p>
         ) : (
-          error500 && (
-            <p>O servidor fahou em responder, tente recarregar a página</p>
-          )
-        )}
-
-        {data &&
-          data.map((games: IgameCard) => {
+          data &&
+          data.map((games) => {
             return (
               <CardGame
-                id={games.id}
+                key={games.id}
                 game_url={games.game_url}
                 thumbnail={games.thumbnail}
                 title={games.title}
@@ -49,7 +52,8 @@ export const Home = () => {
                 genre={games.genre}
               />
             );
-          })}
+          })
+        )}
       </Wrapper>
     </div>
   );
