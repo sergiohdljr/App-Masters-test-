@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import { Wrapper } from "../../styles/wrapper";
 import { Form, Header, InputBusca } from "./style";
-import { getGames } from "../../utils/getGames";
 import { CardGame, ErrorMessage } from "../../components";
 import { useHandleErrorMessage } from "../../store/handleErrors";
 import { IgameCard } from "../../components/cardGame";
 import { Loading } from "../../components/loading";
+import { getGames } from "./data";
 
 export const Home = () => {
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
