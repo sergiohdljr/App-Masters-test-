@@ -5,6 +5,7 @@ import { getGames } from "../../utils/getGames";
 import { CardGame, ErrorMessage } from "../../components";
 import { useHandleErrorMessage } from "../../store/handleErrors";
 import { IgameCard } from "../../components/cardGame";
+import { Loading } from "../../components/loading";
 
 export const Home = () => {
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
@@ -24,7 +25,7 @@ export const Home = () => {
       </Header>
       <Wrapper>
         {isLoading ? (
-          <p>carregando...</p>
+          <Loading />
         ) : errorMessage ? (
           <ErrorMessage msgError={errorMessage} />
         ) : (
