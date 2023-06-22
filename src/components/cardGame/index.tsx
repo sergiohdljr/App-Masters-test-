@@ -24,17 +24,17 @@ export const CardGame = ({
   title,
   thumbnail,
   short_description,
-  game_url,
   genre,
+  game_url,
 }: IgameCard) => {
   return (
     <Card>
       <BannerGame>
-        <Thumbnail src={thumbnail} alt="" />
+        <Thumbnail src={thumbnail} alt={title} loading="lazy" />
       </BannerGame>
       <InfoCard>
         <Title>{title}</Title>
-        <Description>{truncarTexto(short_description, 128)}</Description>
+        <Description>{truncarTexto(short_description, 130)}</Description>
         <FooterCard>
           <LinkGame href={game_url}>compre o jogo</LinkGame>
           <Release>{genre}</Release>
