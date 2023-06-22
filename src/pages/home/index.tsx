@@ -3,27 +3,15 @@ import { Wrapper } from "../../styles/wrapper";
 import { Form, Header, InputBusca } from "./style";
 import { getGames } from "../../utils/getGames";
 import { CardGame } from "../../components";
+import { useHandleErrorMessage } from "../../store/handleErrors";
 import { IgameCard } from "../../components/cardGame";
-import { useState } from "react";
-import { serverErrosCode } from "../../utils/regexServerErros";
 
 export const Home = () => {
-  const [serverError, setServerError] = useState<string>();
+  const { errorMessage, setErrorMessage } = useHandleErrorMessage();
+
   const { data, isLoading } = useQuery<IgameCard[]>(
     "games",
-    async () =>
-      await getGames().catch((error) => {
-        if (error.response) {
-          const match = serverErrosCode.test(error.response.status?.toString());
-          match
-            ? setServerError(
-                "O servidor fahou em responder, tente recarregar a página."
-              )
-            : setServerError(
-                "O servidor não conseguirá responder por agora, tente voltar novamente mais tarde."
-              );
-        }
-      })
+    async () => await getGames({ setErrorMessage })
   );
 
   return (
@@ -37,16 +25,17 @@ export const Home = () => {
       <Wrapper>
         {isLoading ? (
           <p>carregando...</p>
-        ) : serverError ? (
-          <p>{serverError}</p>
+        ) : errorMessage ? (
+          <p>{errorMessage}</p>
         ) : (
           data &&
           data.map((games) => {
+            const imagem = games.thumbnail;
             return (
               <CardGame
                 key={games.id}
                 game_url={games.game_url}
-                thumbnail={games.thumbnail}
+                thumbnail={imagem}
                 title={games.title}
                 short_description={games.short_description}
                 genre={games.genre}

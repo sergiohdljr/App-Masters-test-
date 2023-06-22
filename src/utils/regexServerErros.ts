@@ -1,1 +1,1 @@
-export const serverErrosCode = /^5[0-9]{2}$/;
+export const serverErrosCode = /^(50[02-9]|509)$/;
