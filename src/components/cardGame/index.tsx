@@ -1,3 +1,4 @@
+import { truncarTexto } from "../../utils";
 import {
   BannerGame,
   Card,
@@ -10,23 +11,33 @@ import {
   Title,
 } from "./style";
 
-export const CardGame = () => {
+export interface IgameCard {
+  id: number;
+  title: string;
+  thumbnail: string;
+  short_description: string;
+  game_url: string;
+  genre: string;
+}
+
+export const CardGame = ({
+  title,
+  thumbnail,
+  short_description,
+  game_url,
+  genre,
+}: IgameCard) => {
   return (
     <Card>
       <BannerGame>
-        <Thumbnail
-          src="https://www.freetogame.com/g/540/thumbnail.jpg"
-          alt=""
-        />
+        <Thumbnail src={thumbnail} alt="" />
       </BannerGame>
       <InfoCard>
-        <Title>Overwatch 2</Title>
-        <Description>
-          A hero-focused first-person team shooter from Blizzard Entertainment.
-        </Description>
+        <Title>{title}</Title>
+        <Description>{truncarTexto(short_description, 128)}</Description>
         <FooterCard>
-          <LinkGame href="">Link Game</LinkGame>
-          <Release>2022-10-04</Release>
+          <LinkGame href={game_url}>compre o jogo</LinkGame>
+          <Release>{genre}</Release>
         </FooterCard>
       </InfoCard>
     </Card>
