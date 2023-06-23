@@ -9,15 +9,3 @@ justify-content: center;
 align-items: center;
 gap: 2rem;
 ` 
-
-export const Form = styled.form`
-width: fit-content;
-height: auto;
-`
-
-export const InputBusca = styled.input`
-width: 310px;
-height: 40px;
-padding: 0.2rem;
-font-size: 1rem;
-`
