@@ -6,10 +6,11 @@ interface selected {
 
 export const ButtonFilter = styled.button<selected>`
   all: unset;
-  width: fit-content;
+  width: 80%;
+  max-width: 155px;
   height: auto;
   padding: 0.3rem;
-  background-color: ${(props) => (props.isSelected)};
+  background-color: ${(props) => props.isSelected};
   border: 0.2px black solid;
   display: flex;
   justify-content: space-between;
@@ -26,9 +27,20 @@ export const Genre = styled.p`
 
 export const FiltersWrap = styled.div`
   width: 70%;
-  display: flex;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  justify-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
   margin: 0 auto;
+  gap: 1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 900px) {
+   grid-template-columns: repeat(4, 1fr);
+}
 `;

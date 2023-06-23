@@ -1,5 +1,6 @@
 import { X } from "phosphor-react";
 import { ButtonFilter, Genre } from "./style";
+import { useBuscaGenre } from "../../store";
 
 interface buttonFilter {
   index: number;
@@ -7,9 +8,10 @@ interface buttonFilter {
 }
 
 export const BtnFilter = ({ genre, index }: buttonFilter) => {
-  
+  const { setGenreBuscaValue  } = useBuscaGenre()
+
   const handleFilterButton = () => {
-    console.log(genre)
+    setGenreBuscaValue(genre)
   };
 
   return (

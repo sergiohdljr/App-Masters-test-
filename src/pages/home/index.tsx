@@ -7,16 +7,18 @@ import { IgameCard } from "../../components/cardGame";
 import { Loading } from "../../components/loading";
 import { getGames } from "./data";
 import { InputBusca } from "../../components/inputBusca";
-import { useBusca } from "../../store";
+import { useBusca, useBuscaGenre } from "../../store";
 import { useState } from "react";
 import { FiltersWrap } from "../../components/buttonFilter/style";
 
 export const Home = () => {
-  const { data, isLoading } = useQuery<IgameCard[]>("games", async () => await getGames({ setErrorMessage }));
+  const { data, isLoading } = useQuery<IgameCard[]>(
+    "games",
+    async () => await getGames({ setErrorMessage })
+  );
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
-  const [gameGenre, setGenres] = useState<string[]>();
+  const { genreBuscaValue } = useBuscaGenre();
   const { buscaValue } = useBusca();
-  
 
   const genres = data?.map((game) => game.genre);
   const listGenres = [...new Set(genres)];
@@ -25,10 +27,12 @@ export const Home = () => {
     <>
       <Header>
         APP-MASTERS-GAMES
-        <InputBusca   />
+        <InputBusca />
       </Header>
       <FiltersWrap>
-      {listGenres.sort().map((genre,i)=><BtnFilter genre={genre} index={i} key={genre.toUpperCase()}/>)}
+        {listGenres.map((genre, i) => (
+          <BtnFilter genre={genre} index={i} key={genre.toUpperCase()} />
+        ))}
       </FiltersWrap>
       <Wrapper>
         {isLoading ? (
@@ -38,16 +42,22 @@ export const Home = () => {
         ) : (
           data &&
           data
+            .filter(({ genre }) => {
+              if (genreBuscaValue) {
+                const buscaGenre = genreBuscaValue.toLowerCase();
+                const filtro = genre.toLowerCase();
+                return filtro === buscaGenre;
+              }
+              return data;
+            })
             .filter(({ title }) => {
               if (buscaValue) {
                 const buscaGame = buscaValue.toLowerCase();
                 const filtro = title.toLowerCase();
-
                 return filtro.includes(buscaGame);
               }
               return data;
             })
-
             .map((game) => {
               return (
                 <CardGame
