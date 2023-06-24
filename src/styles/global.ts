@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     body{
         width: 100%;
         height: 100vh;
+        background-color: ${({theme})=> theme.background};
 
         #root{
         width: 100%;

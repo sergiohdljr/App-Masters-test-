@@ -10,4 +10,9 @@ export const LoadingStyle = styled.div`
   gap: 0.3rem;
   justify-self: center;
   align-self: center;
+
+  p{
+    text-align: center;
+    color: ${({theme})=>theme.text};
+  }
 `;
