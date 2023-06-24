@@ -31,9 +31,18 @@ export const FiltersWrap = styled.div`
   width: 50%;
   height: auto;
   display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin: 0 auto;
   gap: 1rem;
+
+ 
+@media screen and (max-width: 992px) {
+  width: 75%;
+}
+
+@media screen and (max-width: 480px) {
+  width: 95%;
+}
 `;

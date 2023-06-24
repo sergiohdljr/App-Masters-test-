@@ -7,7 +7,7 @@ interface buttonFilter {
   genre: string;
 }
 
-export const BtnFilter = ({ genre, index }: buttonFilter) => {
+export const BtnFilter = ({ genre }: buttonFilter) => {
   const { setGenreBuscaValue  } = useBuscaGenre()
 
   const handleFilterButton = () => {
@@ -15,9 +15,8 @@ export const BtnFilter = ({ genre, index }: buttonFilter) => {
   };
 
   return (
-    <ButtonFilter isSelected={"#f6f6f6"} onClick={handleFilterButton}>
+    <ButtonFilter onClick={handleFilterButton}>
       <Genre>{genre}</Genre>
-      <X size={12} color={"black"} />
     </ButtonFilter>
   );
 };

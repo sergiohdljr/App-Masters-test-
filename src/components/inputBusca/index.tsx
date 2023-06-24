@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Form, FormContainer, GenreOfBusca, Input, ResetBusca } from "./styles";
+import { BuscaButton, Form, FormContainer, GenreOfBusca, Input, ResetBusca } from "./styles";
 import { useBusca, useBuscaGenre } from "../../store";
-import { useState } from "react";
+import { MagnifyingGlass } from "phosphor-react";
 
 interface busca {
   busca: string;
@@ -26,12 +26,12 @@ export const InputBusca = () => {
       <GenreOfBusca>buscas feitas para o gênero: {genreBuscaValue}</GenreOfBusca>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input type="text" placeholder="Busca" {...register("busca")} />
-      </Form>
-      {buscaValue ? (
+        {buscaValue ? (
         <ResetBusca onClick={resetBusca}>
           <p>resetar busca</p>
         </ResetBusca>
-      ) : null}
+      ) : <BuscaButton type="submit"><MagnifyingGlass size={16}/></BuscaButton>}
+      </Form>
     </FormContainer>
   );
 };
