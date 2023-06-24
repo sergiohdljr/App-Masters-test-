@@ -9,6 +9,9 @@ import { getGames } from "./data";
 import { InputBusca } from "../../components/inputBusca";
 import { useBusca, useBuscaGenre } from "../../store";
 import { FiltersWrap } from "../../components/buttonFilter/style";
+import { useThemeStore } from "../../store/themeStore";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "../../styles/global";
 
 export const Home = () => {
   const { data, isLoading } = useQuery<IgameCard[]>(
@@ -18,59 +21,65 @@ export const Home = () => {
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
   const { genreBuscaValue } = useBuscaGenre();
   const { buscaValue } = useBusca();
+  const { theme, setTheme } = useThemeStore();
 
   const genres = data?.map((game) => game.genre);
   const listGenres = [...new Set(genres)];
 
   return (
     <>
-      <Header>
-        APP-MASTERS-GAMES
-        <InputBusca />
-      </Header>
-      <FiltersWrap>
-        {listGenres.map((genre, i) => (
-          <BtnFilter genre={genre} index={i} key={genre.toUpperCase()} />
-        ))}
-      </FiltersWrap>
-      <Wrapper>
-        {isLoading ? (
-          <Loading />
-        ) : errorMessage ? (
-          <ErrorMessage msgError={errorMessage} />
-        ) : (
-          data &&
-          data
-            .filter(({ genre }) => {
-              if (genreBuscaValue) {
-                const buscaGenre = genreBuscaValue.toLowerCase();
-                const filtro = genre.toLowerCase();
-                return filtro === buscaGenre;
-              }
-              return data;
-            })
-            .filter(({ title }) => {
-              if (buscaValue) {
-                const buscaGame = buscaValue.toLowerCase();
-                const filtro = title.toLowerCase();
-                return filtro.startsWith(buscaGame);
-              }
-              return data;
-            })
-            .map((game) => {
-              return (
-                <CardGame
-                  key={game.id}
-                  genre={game.genre}
-                  title={game.title}
-                  game_url={game.game_url}
-                  thumbnail={game.thumbnail}
-                  short_description={game.short_description}
-                />
-              );
-            })
-        )}
-      </Wrapper>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Header>
+          <div>
+            <span>APP MASTERS GAMES</span>
+          </div>
+          <InputBusca />
+        </Header>
+        <FiltersWrap>
+          {listGenres.map((genre, i) => (
+            <BtnFilter genre={genre} key={i + genre} />
+          ))}
+        </FiltersWrap>
+        <Wrapper>
+          {isLoading ? (
+            <Loading />
+          ) : errorMessage ? (
+            <ErrorMessage msgError={errorMessage} />
+          ) : (
+            data &&
+            data
+              .filter(({ genre }) => {
+                if (genreBuscaValue) {
+                  const buscaGenre = genreBuscaValue.toLowerCase();
+                  const filtro = genre.toLowerCase();
+                  return filtro === buscaGenre;
+                }
+                return data;
+              })
+              .filter(({ title }) => {
+                if (buscaValue) {
+                  const buscaGame = buscaValue.toLowerCase();
+                  const filtro = title.toLowerCase();
+                  return filtro.startsWith(buscaGame);
+                }
+                return data;
+              })
+              .map((game) => {
+                return (
+                  <CardGame
+                    key={game.id}
+                    genre={game.genre}
+                    title={game.title}
+                    game_url={game.game_url}
+                    thumbnail={game.thumbnail}
+                    short_description={game.short_description}
+                  />
+                );
+              })
+          )}
+        </Wrapper>
+      </ThemeProvider>
     </>
   );
 };

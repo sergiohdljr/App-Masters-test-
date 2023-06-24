@@ -1,4 +1,6 @@
 export const darkTheme = {
+  tema: "escuro",
+
   background: "#141D2F",
   contentBackground: "#1E2A47",
   text: "white",

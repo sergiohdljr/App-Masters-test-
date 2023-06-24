@@ -1,4 +1,6 @@
 export const lightTheme = {
+  tema:"claro", 
+
   background: "#f6f8ff",
   contentBackground: "#fefefe",
   text: "#4b6a9b",
