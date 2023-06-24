@@ -13,6 +13,7 @@ export const InputBusca = () => {
   const { genreBuscaValue } = useBuscaGenre();
 
   const onSubmit: SubmitHandler<busca> = ({ busca }) => {
+    setBuscaValue('')
     setBuscaValue(busca);
   };
 

@@ -53,7 +53,7 @@ export const Home = () => {
               if (buscaValue) {
                 const buscaGame = buscaValue.toLowerCase();
                 const filtro = title.toLowerCase();
-                return filtro.includes(buscaGame);
+                return filtro.startsWith(buscaGame);
               }
               return data;
             })
