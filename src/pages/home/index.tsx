@@ -8,7 +8,6 @@ import { Loading } from "../../components/loading";
 import { getGames } from "./data";
 import { InputBusca } from "../../components/inputBusca";
 import { useBusca, useBuscaGenre } from "../../store";
-import { useState } from "react";
 import { FiltersWrap } from "../../components/buttonFilter/style";
 
 export const Home = () => {
