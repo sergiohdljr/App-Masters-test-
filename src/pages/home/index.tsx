@@ -9,9 +9,9 @@ import { getGames } from "./data";
 import { InputBusca } from "../../components/inputBusca";
 import { useBusca, useBuscaGenre } from "../../store";
 import { FiltersWrap } from "../../components/buttonFilter/style";
-import { useThemeStore } from "../../store/themeStore";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../../styles/global";
+import { lightTheme } from "../../styles/themes";
 
 export const Home = () => {
   const { data, isLoading } = useQuery<IgameCard[]>(
@@ -21,14 +21,13 @@ export const Home = () => {
   const { errorMessage, setErrorMessage } = useHandleErrorMessage();
   const { genreBuscaValue } = useBuscaGenre();
   const { buscaValue } = useBusca();
-  const { theme, setTheme } = useThemeStore();
 
   const genres = data?.map((game) => game.genre);
   const listGenres = [...new Set(genres)];
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
         <Header>
           <div>
