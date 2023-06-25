@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { api } from "../../service/axiosConfig";
-import { ErrorMessagesObj } from "../../utils";
-import { serverErrosCode } from "../../utils/regexServerErros";
+import { ErrorMessagesObj, serverErrosCode } from "../../utils";
 
 interface IgetGames {
   setErrorMessage: (message: string) => void;
@@ -22,7 +21,9 @@ export const getGames = async ({ setErrorMessage }: IgetGames) => {
             const codeErrorMatch = serverErrosCode.test(
               Error.response.status?.toString()
             );
-            codeErrorMatch ? setErrorMessage(ErrorMessagesObj.serverError): setErrorMessage(ErrorMessagesObj.outros);
+            codeErrorMatch
+              ? setErrorMessage(ErrorMessagesObj.serverError)
+              : setErrorMessage(ErrorMessagesObj.outros);
           }
         }
       }
